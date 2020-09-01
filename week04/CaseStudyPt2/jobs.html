@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>JavaJam Coffee House</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div id="root">
+        <header>
+            <img 
+                src="./headerImage.gif" 
+                class="header-image"
+            />
+        </header>
+        <main>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="music.html">Music</a></li>
+                    <li class="active"><a href="jobs.html">Jobs</a></li>
+                </ul>
+            </nav>
+            <div class="right-column">
+                <h1 class="title">Jobs at JavaJam</h1>
+                <div class="subtitle">Want to work at JavaJam? Fill out the form below to start your application. Required fields are marked with an asterisk*</div>
+
+                <form method="post" action="show_post.php">
+                    <div class="input-container">
+                        <label for="name">*Name: </label>
+                        <input type="text" name="name" id="name" required/>
+                    </div>
+                    
+                    <div class="input-container">
+                        <label for="email">*E-mail: </label>
+                        <input type="email" name="email" id="email" required/>
+                    </div>
+
+                    <div class="input-container">
+                        <label for="startDate">Start date: </label>
+                        <input type="date"  name="startDate" id="startDate"/>
+                    </div>
+
+                    <div class="input-container">
+                        <label for="experience">*Experience: </label>
+                        <textarea name="experience" id="experience" required></textarea>
+                    </div>
+                    <input type="submit" value="Apply Now"/>
+                </form>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <i><small>
+                    Copyright &copy; 2014 Javajam Coffee House <br/>
+                    <a href="mailto:andreas@sujono.com">andreas@sujono.com</a>
+                </small></i>
+                
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -116,6 +116,7 @@ table.menu tr td:first-child{
 table td{
     padding: 10px;
 }
+table th, table #totalprice{white-space: nowrap;}
 
 /* music */
 table.music{
@@ -163,4 +164,10 @@ form .input-container{
 
 input[type="submit"]{
     margin-top: 20px;
+}
+
+input[type="number"]{
+    width: 40px;
+    height: 20px;
+    padding-left: 4px;
 }

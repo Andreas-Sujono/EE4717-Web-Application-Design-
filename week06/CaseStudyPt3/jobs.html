@@ -26,7 +26,7 @@
                 <h1 class="title">Jobs at JavaJam</h1>
                 <div class="subtitle">Want to work at JavaJam? Fill out the form below to start your application. Required fields are marked with an asterisk*</div>
 
-                <form method="post" action="show_post.php">
+                <form method="post" action="show_post.php" onsubmit="return handleSubmit()">
                     <div class="input-container">
                         <label for="name">*Name: </label>
                         <input type="text" name="name" id="name" required/>
@@ -34,20 +34,22 @@
                     
                     <div class="input-container">
                         <label for="email">*E-mail: </label>
-                        <input type="email" name="email" id="email" required/>
+                        <input type="text" name="email" id="email" required/>
                     </div>
 
                     <div class="input-container">
-                        <label for="startDate">Start date: </label>
-                        <input type="date"  name="startDate" id="startDate"/>
+                        <label for="startDate">*Start date: </label>
+                        <input type="date" name="startDate" id="startDate" required/>
                     </div>
 
                     <div class="input-container">
                         <label for="experience">*Experience: </label>
                         <textarea name="experience" id="experience" required></textarea>
                     </div>
+                    <div class="error-message" style="color:red;margin-top:10px;"></div>
                     <input type="submit" value="Apply Now"/>
                 </form>
+                
             </div>
         </main>
 
@@ -62,4 +64,47 @@
         </footer>
     </div>
 </body>
+<script>
+    let form = document.querySelector('form')
+    let name = document.querySelector('form #name')
+    let email = document.querySelector('form #email')
+    let startDate = document.querySelector('form #startDate')
+    let experience = document.querySelector('form #experience')
+    let errorMessage = document.querySelector('.error-message')
+
+    function handleSubmit (){
+        let isValidated = true
+        let message = ''
+
+        //check for name field
+        if(!(/^([a-zA-Z]|[a-zA-Z][a-zA-Z ]*[a-zA-Z])$/.test(name.value))){
+            isValidated = false
+            message = 'Name can only contain alphabet character and character spaces'
+        }
+        //check for email field
+        else if(!(/^[a-zA-Z-.]+@(\w+\.){1,3}\w{2,3}$/.test(email.value))){
+            isValidated = false
+            message = 'Please input a correct email'
+        }
+        //check for startDate field
+        else if(Date.parse(startDate.value) <= new Date().getTime()){
+            isValidated = false
+            message = 'Start date cannot from today and the past'
+        }
+        //check for experience field
+        else if(!experience.value){
+            isValidated = false
+            message = 'Experience cannot be empty'
+        }
+
+        if(!isValidated){
+            errorMessage.innerHTML = message
+            return false
+        }
+
+        errorMessage.innerHTML =''
+        return true
+    }
+
+</script>
 </html>

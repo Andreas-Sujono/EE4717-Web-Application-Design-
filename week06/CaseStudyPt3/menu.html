@@ -26,18 +26,62 @@
                 <h1 class="title">Coffee at JavaJam</h1>
 
                 <table class="menu">
-                    <tr>
-                        <td>Just Java</td>
-                        <td>Regular house blend, decaffeinated coffee, or flavor of the day. <br/> Endless Cup $2.00</td>
-                    </tr>
-                    <tr>
-                        <td>Cafe au Lait</td>
-                        <td>House blended coffee infused into a smooth, steamed milk. <br/> Single $2.00 Double $3.00</td>
-                    </tr>
-                    <tr>
-                        <td>Iced Cappucino</td>
-                        <td>Sweetened expresso blended with icy-cold milk and served in a chilled glass. <br/> Single $4.75 Double $5.75</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Quantity</th>
+                            <th>Sub total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Just Java</td>
+                            <td>Regular house blend, decaffeinated coffee, or flavor of the day. <br/>
+                                <form id="radio_group1">
+                                    <input type="radio" value="2" name="radio_group1" checked> Endless Cup $2.00
+                                </form> 
+                            </td>
+                            <td>
+                                <input type="number" value="0" id="quantity1" min="0"/>
+                            </td>
+                            <td id="subtotal1"></td>
+                        </tr>
+                        <tr>
+                            <td>Cafe au Lait</td>
+                            <td>House blended coffee infused into a smooth, steamed milk. <br/> 
+                                <form id="radio_group2">
+                                    <input type="radio" value="2" name="radio_group2" checked> Single $2.00
+                                    <input type="radio" value="3" name="radio_group2"> Double $3.00      
+                                </form>
+                            </td>
+                            <td>
+                                <input type="number" value="0" id="quantity2" min="0"/>
+                            </td>
+                            <td id="subtotal2"></td>
+                        </tr>
+                        <tr>
+                            <td>Iced Cappucino</td>
+                            <td>Sweetened expresso blended with icy-cold milk and served in a chilled glass. <br/> 
+                                <form id="radio_group3">
+                                    <input type="radio" value="4.75" name="radio_group3" checked> Single $4.75
+                                    <input type="radio" value="5.75" name="radio_group3"> Double $5.75    
+                                </form>
+                            </td>
+                            <td>
+                                <input type="number" value="0" id="quantity3" min="0"/>
+                            </td>
+                            <td id="subtotal3"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td colspan="2" id="totalprice"></td>
+                        </tr>
+                    </tfoot>
+
                 </table>
             </div>
         </main>
@@ -53,4 +97,52 @@
         </footer>
     </div>
 </body>
+<script>
+
+    let rows = document.querySelector('table tbody').getElementsByTagName("tr");
+    let totalprice = document.querySelector('#totalprice')
+
+    function calculate_price(){
+        let total = 0;
+        for(let i = 0 ; i < rows.length; i++){
+            let current_row = rows[i]
+            let cols = current_row.getElementsByTagName("td");
+
+            let radio_input = cols[1].querySelectorAll(`form input[type="radio"]`)
+            let radio_value = 0
+            for(let j = 0 ; j < radio_input.length; j++){
+                if(radio_input[j].checked)
+                    radio_value = radio_input[j].value
+            }
+
+            let quantity_el = cols[2].querySelector('input')
+            let subtotal_el = cols[3]
+            let subtotal = parseFloat(quantity_el.value) * parseFloat(radio_value)
+            total += subtotal
+
+            subtotal_el.innerHTML = '$' + subtotal
+        }
+        totalprice.innerHTML = `Total Price: $${total}`
+    }
+    calculate_price()
+
+    for(let i = 0 ; i < rows.length; i++){
+        let current_row = rows[i]
+        let cols = current_row.getElementsByTagName("td");
+
+        let radio_input = cols[1].querySelectorAll('form input[type="radio"]')
+        let quantity_el = cols[2].querySelector('input')
+
+        for(let j = 0 ; j < radio_input.length; j++){
+            radio_input[j].onchange = () => {
+                calculate_price()
+            }
+        }
+
+        quantity_el.onchange = () => {
+            calculate_price()
+        }
+    }
+
+</script>
 </html>

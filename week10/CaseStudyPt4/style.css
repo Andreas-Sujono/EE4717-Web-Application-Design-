@@ -148,7 +148,7 @@ table.music audio{
 }
 
 form{
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 form .input-container label{
@@ -177,11 +177,30 @@ input[type="number"]{
     position: relative;
     left:-20px;
 }
-.menu .menu-checkbox{
+.menu .menu-checkbox, .sales-report .menu-checkbox{
     width: 25px;
     height:25px ;
     border: 1px solid black;
     border-radius: 4px;
     background-color: white;
     cursor: pointer;
+}
+
+
+
+.sales-report h2{
+    color: rgb(87, 27, 0);
+    font-size: 20px;
+    font-weight: bold;
+    margin:0;
+    margin-bottom: 10px;
+}
+
+
+.report-table{
+    border-collapse: collapse;
+    width: 80%;
+}
+.report-table tr, .report-table td{
+    border:1px solid grey;
 }

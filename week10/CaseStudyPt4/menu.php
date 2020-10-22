@@ -1,3 +1,43 @@
+<?php
+$servername = "localhost";
+$username = "f32ee";
+$password = "f32ee";
+$dbname = 'f32ee';
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+if($_GET){
+    foreach($_GET as $key => $value)
+    {
+        if(is_int($key)){
+            $sql = "UPDATE Menu set price=$value where id=$key";
+            $result = $conn->query($sql);
+        }
+    }
+}
+
+$sql = "SELECT * FROM `Menu`";
+$result = $conn->query($sql);
+
+if ($result->num_rows >0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        ${$row["name"]} = $row["price"];
+        ${'id_'.$row["name"]} = $row["id"];
+    }
+} else {
+    echo "0 results";
+}
+
+
+
+?>
+
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -17,9 +57,10 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li class="active"><a href="menu.html">Menu</a></li>
+                    <li class="active"><a href="menu.php">Menu</a></li>
                     <li><a href="music.html">Music</a></li>
                     <li><a href="jobs.html">Jobs</a></li>
+                    <li><a href="salesReport.php">Daily Sales Report</a></li>
                 </ul>
             </nav>
             <div class="right-column">
@@ -41,7 +82,12 @@
                             <td>Just Java</td>
                             <td>Regular house blend, decaffeinated coffee, or flavor of the day. <br/>
                                 <form id="radio_group1">
-                                    <input type="radio" value="2" name="radio_group1" checked> Endless Cup $2.00
+                                    <input type="radio" value="<?php  echo ${"Just Java"}; ?>" name="Just Java" checked> Endless Cup 
+                                        <span style="display:inline">
+                                            $<?php  echo ${"Just Java"}; ?>
+                                        </span>
+                                        <input type="number" value="<?php  echo ${"Just Java"}; ?>" style="display:none" name="<?php  echo ${"id_Just Java"}; ?>"/>
+                                    <input type="submit" value="edit price" style="display: none;"/>
                                 </form> 
                             </td>
                             <td>
@@ -53,9 +99,15 @@
                             <td><div type="checkbox" class="menu-checkbox menu-checkbox2"></div></td>
                             <td>Cafe au Lait</td>
                             <td>House blended coffee infused into a smooth, steamed milk. <br/> 
-                                <form id="radio_group2">
-                                    <input type="radio" value="2" name="radio_group2" checked> Single $2.00
-                                    <input type="radio" value="3" name="radio_group2"> Double $3.00      
+                                <form id="radio_group2" name="etst">
+                                    <input type="radio" value="<?php  echo ${"Cafe au Lait (single)"}; ?>" name="Cafe au Lait" checked> Single 
+                                        <span style="display:inline">$<?php  echo ${"Cafe au Lait (single)"}; ?></span>
+                                        <input type="number" value="<?php  echo ${"Cafe au Lait (single)"}; ?>" style="display:none" name="<?php  echo ${"id_Cafe au Lait (single)"}; ?>"/>
+
+                                    <input type="radio" value="<?php  echo ${"Cafe au Lait (double)"}; ?>" name="Cafe au Lait"> Double 
+                                        <span style="display:inline">$<?php  echo ${"Cafe au Lait (double)"}; ?>  </span>
+                                        <input type="number" value="<?php  echo ${"Cafe au Lait (double)"}; ?>" style="display:none" name="<?php  echo ${"id_Cafe au Lait (double)"}; ?>"/>
+                                    <input type="submit" value="edit price" style="display: none;"/>
                                 </form>
                             </td>
                             <td>
@@ -68,8 +120,13 @@
                             <td>Iced Cappucino</td>
                             <td>Sweetened expresso blended with icy-cold milk and served in a chilled glass. <br/> 
                                 <form id="radio_group3">
-                                    <input type="radio" value="4.75" name="radio_group3" checked> Single $4.75
-                                    <input type="radio" value="5.75" name="radio_group3"> Double $5.75    
+                                    <input type="radio" value="<?php  echo ${"Iced Cappucino (single)"}; ?>" name="Iced Cappucino" checked> Single 
+                                        <span style="display:inline">$<?php  echo ${"Iced Cappucino (single)"}; ?></span>
+                                        <input type="number" value="<?php  echo ${"Iced Cappucino (single)"}; ?>" style="display:none" name="<?php  echo ${"id_Iced Cappucino (single)"}; ?>"/>
+                                    <input type="radio" value="<?php  echo ${"Iced Cappucino (double)"}; ?>" name="Iced Cappucino"> Double 
+                                        <span style="display:inline">$<?php  echo ${"Iced Cappucino (double)"}; ?></span>
+                                        <input type="number" value="<?php  echo ${"Iced Cappucino (double)"}; ?>" style="display:none" name="<?php  echo ${"id_Iced Cappucino (double)"}; ?>"/>
+                                    <input type="submit" value="edit price" style="display: none;"/>
                                 </form>
                             </td>
                             <td>
@@ -131,12 +188,51 @@
     }
     calculate_price()
 
+    let boxClicked = null;
+
+    function handleShowUpdate(form){
+        if(boxClicked) return handleHideUpdate(form)
+        boxClicked = form
+        let spans = form.querySelectorAll('span')
+        let inputs = form.querySelectorAll('input[type="number"]')
+        let updateButton = form.querySelector('input[type="submit"]')
+
+        updateButton.style.display = 'block'
+
+        spans.forEach(span => {
+            span.style.display = 'none'
+        })
+        inputs.forEach(input => {
+            input.style.display = 'inline'
+        })
+    }
+
+    function handleHideUpdate(form){
+        boxClicked = null
+        let spans = form.querySelectorAll('span')
+        let inputs = form.querySelectorAll('input[type="number"]')
+        let updateButton = form.querySelector('input[type="submit"]')
+
+        updateButton.style.display = 'none'
+
+        spans.forEach(span => {
+            span.style.display = 'inline'
+        })
+        inputs.forEach(input => {
+            input.style.display = 'none'
+        })
+    }
+
+
     for(let i = 0 ; i < rows.length; i++){
         let current_row = rows[i]
         let cols = current_row.getElementsByTagName("td");
 
+        let box_update = cols[0].querySelector('div')
         let radio_input = cols[2].querySelectorAll('form input[type="radio"]')
         let quantity_el = cols[3].querySelector('input')
+
+        box_update.onclick = () => handleShowUpdate(cols[2].querySelector('form'))      
 
         for(let j = 0 ; j < radio_input.length; j++){
             radio_input[j].onchange = () => {

@@ -1,0 +1,187 @@
+body{
+    background-color: rgb(238,226,172);
+    min-width: 100vw;
+    min-height: 100vh;
+}
+#root{
+    width: 80%;
+    min-width: 800px;
+    margin:auto;
+    box-shadow: 2px 2px 5px rgb(87, 27, 0);
+}
+header{
+    width:100%;
+    background-color: rgb(204,170,102);
+}
+header >img{
+    display: block;
+    margin: auto;
+}
+main{
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    flex-direction: row;
+}
+
+nav{
+    background: rgb(226,211,176);
+    width: 20%;
+}
+nav ul{
+    list-style-type: none;
+    color: rgb(127,83,65);
+    font-weight: bold;
+    font-size:18px;
+}
+nav ul li.active{
+    color: rgb(175, 152, 118)
+}
+
+main .right-column{
+    position: relative;
+    width: 80%;
+    background-color: rgb(245, 245, 220);
+    padding:20px;
+}
+
+.image-container{
+    width: 300px;
+    height: auto;
+    float: left;
+}
+.image-container img{
+    width: 100%;
+}
+
+main{
+    color: rgb(87, 27, 0);
+    font-size: 17px;
+    font-weight: 500;
+}
+
+main .right-column .title{
+    color: rgb(87, 27, 0);
+    font-size: 26px;
+    font-weight: bold;
+    margin:0;
+    margin-bottom: 10px;
+}
+
+
+footer{
+    width: 100%;
+    height: 70px;
+    background-color: rgb(204,170,102);
+    display: flex;justify-content: center;align-items: center;
+    text-align: center;
+}
+
+li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* homepage */
+.right-column-content-container{
+    margin-left: 30px;
+}
+.right-column-content{
+    width: 60%;
+    margin-left:300px;
+}
+.right-column-content ul{
+    margin:0;
+}
+.right-column-content .address{
+    margin-top: 15px;
+    margin-left: 25px;
+}
+
+/* menu */
+table.menu{
+    width:80%;
+    min-width: 550px;
+    margin-top: 20px;
+    margin-left: 40px;
+}
+table.menu tr:nth-of-type(odd){
+    background-color: rgb(204,170,102);
+}
+table.menu tr td:first-child{
+    font-weight: bold;
+    text-align: center;
+}
+table td{
+    padding: 10px;
+}
+table th, table #totalprice{white-space: nowrap;}
+
+/* music */
+table.music{
+    width:80%;
+    min-width: 550px;
+    max-width: 700px;
+    margin:auto;   
+    margin-top: 20px;
+}
+table.music .heading{
+    background-color: rgb(204,170,102);
+    font-weight: bold;
+}
+table.music .heading td{
+    background-color: rgb(204,170,102);
+    font-weight: bold;
+    font-size: 18px;
+    padding:0;
+}
+
+table.music img{
+    width:80px;
+    display: block;
+    margin:auto;
+}
+
+table.music audio{
+    margin-top: 20px;
+}
+
+form{
+    margin-top: 20px;
+}
+
+form .input-container label{
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    margin-right: 30px;
+}
+form .input-container{
+    margin-top: 10px;
+    display: flex; align-items: flex-start;
+}
+
+input[type="submit"]{
+    margin-top: 20px;
+}
+
+input[type="number"]{
+    width: 40px;
+    height: 20px;
+    padding-left: 4px;
+}
+
+.menu tr td:first-child, .menu tr th:first-child{
+    background-color: rgb(245, 245, 220);
+    position: relative;
+    left:-20px;
+}
+.menu .menu-checkbox{
+    width: 25px;
+    height:25px ;
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+}
